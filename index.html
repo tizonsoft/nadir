@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nadir — Satellite Geo-Quiz</title>
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nadir — Satellite Geo-Quiz">
+<meta property="og:description" content="Guess real-world locations from satellite close-ups. 10 questions, 60 seconds each, new locations every run.">
+<meta property="og:image" content="og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nadir — Satellite Geo-Quiz">
+<meta name="twitter:description" content="Guess real-world locations from satellite close-ups.">
+<meta name="twitter:image" content="og-image.png">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- START SCREEN -->
+  <section id="screen-start" class="screen active">
+    <div class="card intro">
+      <div class="logo">🛰️</div>
+      <h1>Nadir</h1>
+      <p class="subtitle">Identify locations from real satellite close-ups.</p>
+      <p class="hint">10 questions · 60 seconds each · new random set every run</p>
+
+      <div id="challenge-banner" class="challenge-banner hidden">
+        <span id="challenge-text"></span>
+      </div>
+
+      <button id="btn-start" class="btn btn-primary">Play →</button>
+    </div>
+  </section>
+
+  <!-- DIFFICULTY SCREEN -->
+  <section id="screen-difficulty" class="screen">
+    <div class="card difficulty-card">
+      <h2>Choose difficulty</h2>
+      <p class="hint">Affects which locations appear — not just the decoys.</p>
+      <div class="diff-grid">
+        <button class="diff-btn" data-diff="easy">
+          <span class="diff-icon">🌍</span>
+          <span class="diff-name">Easy</span>
+          <span class="diff-desc">Famous landmarks most people recognise</span>
+        </button>
+        <button class="diff-btn" data-diff="medium">
+          <span class="diff-icon">🗺️</span>
+          <span class="diff-name">Medium</span>
+          <span class="diff-desc">Well-known places, trickier terrain</span>
+        </button>
+        <button class="diff-btn" data-diff="hard">
+          <span class="diff-icon">🧭</span>
+          <span class="diff-name">Hard</span>
+          <span class="diff-desc">Remote parks, lesser-known wonders</span>
+        </button>
+        <button class="diff-btn" data-diff="expert">
+          <span class="diff-icon">🛰️</span>
+          <span class="diff-name">World Traveler</span>
+          <span class="diff-desc">Obscure islands, glaciers &amp; deserts</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ SCREEN -->
+  <section id="screen-quiz" class="screen">
+    <div class="card quiz">
+
+      <div class="quiz-header">
+        <span id="progress-label">1 / 10</span>
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="score-label">0 pts</span>
+      </div>
+
+      <div class="image-wrap">
+        <img id="sat-image" alt="Satellite close-up to identify" />
+        <div id="image-loading" class="image-loading">Loading imagery…</div>
+        <div class="timer-overlay">
+          <svg id="timer-ring" viewBox="0 0 64 64">
+            <circle class="ring-bg"   cx="32" cy="32" r="28"/>
+            <circle class="ring-fill" cx="32" cy="32" r="28" id="ring-arc"/>
+          </svg>
+          <span id="timer-text">60</span>
+        </div>
+      </div>
+
+      <div id="options" class="options"></div>
+
+      <div class="feedback-row">
+        <p id="feedback-text" class="feedback-text"></p>
+        <button id="btn-next" class="btn btn-primary hidden">Next →</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section id="screen-results" class="screen">
+    <div class="card results">
+      <h2 id="results-title">Quiz Complete!</h2>
+      <p class="score-big"><span id="final-score">0</span><span class="score-denom">/10</span></p>
+      <p id="diff-badge" class="diff-badge"></p>
+      <p id="results-message" class="results-message"></p>
+
+      <div id="share-box" class="share-box">
+        <div id="emoji-grid" class="emoji-grid"></div>
+
+        <p class="share-label">Challenge someone:</p>
+        <div class="share-btns">
+          <button id="btn-share-x"        class="btn btn-social btn-x">X</button>
+          <button id="btn-share-fb"       class="btn btn-social btn-fb">Facebook</button>
+          <button id="btn-share-wa"       class="btn btn-social btn-wa">WhatsApp</button>
+          <button id="btn-share-threads"  class="btn btn-social btn-threads">Threads</button>
+        </div>
+        <div class="share-btns share-btns-secondary">
+          <button id="btn-share-image" class="btn btn-copy">📸 Save image (for IG Story)</button>
+          <button id="btn-share-copy"  class="btn btn-copy">Copy text</button>
+          <button id="btn-share-native" class="btn btn-native hidden">Share…</button>
+        </div>
+        <p id="copy-confirm" class="copy-confirm hidden">Copied ✓</p>
+      </div>
+
+      <div id="review-list" class="review-list"></div>
+      <button id="btn-restart" class="btn btn-primary">Play Again</button>
+    </div>
+  </section>
+
+  <footer class="credit">Imagery © Esri, Maxar, Earthstar Geographics<br>Made with 🤖🏕️ by Tizon</footer>
+</div>
+
+<!-- Hidden canvas used to render the shareable score-card image -->
+<canvas id="share-canvas" width="1080" height="1920" class="hidden"></canvas>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
